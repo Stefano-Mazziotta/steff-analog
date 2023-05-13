@@ -169,3 +169,14 @@ export const photos = [
     },
 ]
 
+export const categories = [
+    {
+        id: 1,
+        name: "Trips",
+    },
+    {
+        id: 2,
+        name: "Street",
+    }
+];
+
