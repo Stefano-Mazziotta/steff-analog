@@ -1,11 +1,11 @@
 ## WWW.STEFFANALOG.COM
-My photography website.
-Made with: next.js 13, typescript, graphQL and postgreSQL. 
+My photography website.  
+Made with: next.js 13, typescript, graphQL and postgreSQL.  
 Investigating ORM ... maybe Sequelize, typeORM or Prisma.
 
 ## Getting Started
 
-2. install dependencies:
+1. install dependencies:
 ```bash
 pnpm install
 ```
