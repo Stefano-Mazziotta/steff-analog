@@ -8,13 +8,9 @@ export const getApolloClient = () => {
   if (!apolloClient || typeof window === "undefined") {
     apolloClient = new ApolloClient({
       link: new HttpLink({
-        uri: `http://${process.env.NEXT_PUBLIC_BASE_URL}/graphql` // 
+        uri: `http://${process.env.NEXT_PUBLIC_BASE_URL}/graphql`
       }),
-      cache: new InMemoryCache(),
-      headers: {
-        'access-control-allow-methods': 'POST',
-        'access-control-allow-origin': '*',
-      }
+      cache: new InMemoryCache()
     });
   }
 
