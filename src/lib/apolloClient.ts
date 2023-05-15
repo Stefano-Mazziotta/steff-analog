@@ -11,6 +11,10 @@ export const getApolloClient = () => {
         uri: `http://${process.env.NEXT_PUBLIC_BASE_URL}/graphql` // 
       }),
       cache: new InMemoryCache(),
+      headers: {
+        'access-control-allow-origin': 'https://studio.apollographql.com',
+        'access-control-allow-credentials': 'true'
+      }
     });
   }
 
