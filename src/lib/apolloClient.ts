@@ -12,8 +12,8 @@ export const getApolloClient = () => {
       }),
       cache: new InMemoryCache(),
       headers: {
-        'access-control-allow-origin': 'https://studio.apollographql.com',
-        'access-control-allow-credentials': 'true'
+        'access-control-allow-methods': 'POST',
+        'access-control-allow-origin': '*',
       }
     });
   }
