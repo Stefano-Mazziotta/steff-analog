@@ -1,24 +1,22 @@
 import { ApolloServer } from "@apollo/server";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
-import { NextRequest } from "next/server";
 
 import { typeDefs } from "@/graphql/schema";
 import { resolvers } from "@/graphql/resolvers";
+import { NextApiResponse, NextApiRequest } from "next";
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
 
-const handler = startServerAndCreateNextHandler<NextRequest>(server, {
-  context: async (req, res) => ({ req, res }),
+const handler = startServerAndCreateNextHandler<NextApiRequest>(server, {
+  context: async (request, response) => ({ request, response }),
 });
 
-export async function GET(request: NextRequest){
-  return handler(request)
-}
-
-export async function POST(request: NextRequest) {
-  return handler(request);
+export default async function handlerWrapper(request: NextApiRequest, response: NextApiResponse) {
+  response.setHeader("Access-Control-Allow-Origin", "https://studio.apollographql.com");
+  response.setHeader("Access-Control-Allow-Credentials", "true");
+  return handler(request, response);
 }
 
