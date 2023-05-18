@@ -35,5 +35,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# vscode
+.vscode
+
 # public/gallery
 # public/gallery
