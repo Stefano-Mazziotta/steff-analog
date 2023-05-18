@@ -35,7 +35,6 @@ const cors = Cors(corsOptions);
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 const server = new ApolloServer({ schema });
 
-//test
 const handler = startServerAndCreateNextHandler<NextRequest>(server, {
   context: async (req) => ({ req }),
 });
