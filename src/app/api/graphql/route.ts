@@ -8,7 +8,7 @@ import { typeDefs } from '@/graphql/schema';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 
-const whitelist = ['http://localhost:3000', 'https://studio.apollographql.com'];
+const whitelist = ['http://localhost:3000', 'https://steff-analog.vercel.app/'];
 
 const corsOptions: CorsOptions = {
   origin: function (origin, callback) {
@@ -32,8 +32,15 @@ const corsOptions: CorsOptions = {
 
 const cors = Cors(corsOptions);
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
-const server = new ApolloServer({ schema });
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
+
+const server = new ApolloServer({
+  schema,
+  introspection: process.env.NODE_ENV !== 'production'
+});
 
 const handler = startServerAndCreateNextHandler<NextRequest>(server, {
   context: async (req) => ({ req }),
@@ -51,12 +58,12 @@ function runMiddleware(req: NextRequest, res: NextResponse, fn: Function) {
   });
 }
 
-export async function GET(req: NextRequest, res:NextResponse) {
-  await runMiddleware(req, res, cors);
-  return handler(req);
+export async function GET(request: NextRequest, res:NextResponse) {
+  await runMiddleware(request, res, cors);
+  return handler(request);
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
-  await runMiddleware(req, res, cors);
-  return handler(req);
+export async function POST(request: NextRequest, response: NextResponse) {
+  await runMiddleware(request, response, cors);
+  return handler(request);
 }
