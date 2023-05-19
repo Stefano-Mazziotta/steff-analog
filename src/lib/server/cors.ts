@@ -1,6 +1,6 @@
 import Cors, { CorsOptions } from "cors";
 
-const whitelist = ['http://localhost:3000', 'https://steff-analog.vercel.app/'];
+const whitelist = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST.split(", ") : [];
 
 const corsOptions: CorsOptions = {
   origin: function (origin, callback) {
