@@ -6,7 +6,7 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 
 import { cors } from '@/lib/server/cors';
-import { runMiddleware } from '@/lib/server/helpers';
+import { runMiddleware } from '@/lib/server/middleware';
 import { formatError } from '@/lib/server/apolloServer';
 
 import { resolvers } from '@/graphql/resolvers';
