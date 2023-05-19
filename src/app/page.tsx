@@ -1,4 +1,4 @@
-import { getApolloClient } from "@/lib/apolloClient"
+import { getApolloClient } from "@/lib/client/apolloClient"
 import { gql } from "@apollo/client"
 import { Key } from "react"
 
@@ -27,14 +27,14 @@ export default async function HomePage() {
   
   return (
     <main>
-      <h1>{photos.map(photo => {
+      {photos.map(photo => {
         return (
           <ul key={photo.id}>
             <li>{photo.description}</li>
             <li>{photo.shootDate}</li>
           </ul>
         )
-        })}</h1>
+        })}
     </main>
   )
 }
