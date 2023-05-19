@@ -42,18 +42,22 @@ const isProduction = process.env.NODE_ENV === 'production';
 const server = new ApolloServer({
   schema,
   introspection: !isProduction,
-  plugins: isProduction ? [ApolloServerPluginLandingPageDisabled()] : [],
-  formatError: (error) => {
+  plugins: !isProduction ? [ApolloServerPluginLandingPageDisabled()] : [],
+  formatError: (formatedError, error) => {
     // Check if the error object contains any extensions
-    if (error.extensions && error.extensions.code === "BAD_REQUEST") {
+    if (formatedError.extensions && formatedError.extensions.code === "BAD_REQUEST") {
       // Customize the error message for the specific code
       const errorMessage = "Bad request. Please check your input.";
-      return new Error(errorMessage);
+      return {
+        message: errorMessage
+      };
     }
     
     // Default error message
     const errorMessage = "An error occurred. Please try again later.";
-    return new Error(errorMessage);
+    return {
+      message: errorMessage
+    };
   },
 });
 
