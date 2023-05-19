@@ -1,5 +1,12 @@
 import { getApolloClient } from "@/lib/apolloClient"
 import { gql } from "@apollo/client"
+import { Key } from "react"
+
+interface IPhotosDTO {
+  id: Key
+  description: String
+  shootDate: String
+}
 
 const query = gql`
   query GetPhotos {
@@ -16,7 +23,7 @@ export default async function HomePage() {
   const apolloClient = getApolloClient();
   const { data } = await apolloClient.query({ query })
   
-  const photos = data.getPhotos;
+  const photos:IPhotosDTO[] = data.getPhotos;
   
   return (
     <main>
