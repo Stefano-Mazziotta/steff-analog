@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ApolloServer } from '@apollo/server';
+import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled';
 import Cors, { CorsOptions } from 'cors';
 
 import { resolvers } from '@/graphql/resolvers';
@@ -37,9 +38,11 @@ const schema = makeExecutableSchema({
   resolvers,
 });
 
+const isProduction = process.env.NODE_ENV === 'production';
 const server = new ApolloServer({
   schema,
-  introspection: process.env.NODE_ENV !== 'production'
+  introspection: !isProduction,
+  plugins: isProduction ? [ApolloServerPluginLandingPageDisabled()] : [],
 });
 
 const handler = startServerAndCreateNextHandler<NextRequest>(server, {
