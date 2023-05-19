@@ -39,7 +39,7 @@ const handler = startServerAndCreateNextHandler<NextRequest>(server, {
   context: async (req) => ({ req }),
 });
 
-function runMiddleware(req: NextRequest, res: NextResponse, fn: any) {
+function runMiddleware(req: NextRequest, res: NextResponse, fn: Function) {
   return new Promise((resolve, reject) => {
     fn(req, res, (result: any) => {
       if (result instanceof Error) {
