@@ -11,7 +11,7 @@ const merriweather = Merriweather({
 })
 
 export const metadata = {
-  title: 'steff-analog',
+  title: 'Analog Steff',
   description: 'Photography art gallery',
 }
 

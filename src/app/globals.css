@@ -11,6 +11,8 @@
   --strong-cream-1: #e0dace;
   --strong-cream-2: #d6cebf;
   --strong-cream-3: #ccc3af;
+
+  --color-white: #f2f2f2;
 }
 
 * {
@@ -23,8 +25,8 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: var(--principal-cream);
-  color: var(--strong-green-3);
+  background-color: var(--strong-green-3);
+  color: var(--color-white);
 }
 
 a {
