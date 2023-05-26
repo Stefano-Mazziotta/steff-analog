@@ -13,6 +13,9 @@
   --strong-cream-3: #ccc3af;
 
   --color-white: #f2f2f2;
+
+  --width-container-screen-320: 95%;
+  --width-container-screen-1440: 60%;
 }
 
 * {
