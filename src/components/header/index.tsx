@@ -1,11 +1,9 @@
 import Link from 'next/link';
 import styles from './styles.module.css';
 
-import { links } from '@/constant/links';
-
 import { Hamburger } from './hamburger';
 import { AsideMenu } from './asideMenu';
-import { LinksList } from './linksList';
+import { LinksList } from '../linksList';
 
 export function Header(){
     

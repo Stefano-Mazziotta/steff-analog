@@ -1,7 +1,5 @@
-import Link from "next/link"
-import { links } from "@/constant/links"
 import styles from '../styles.module.css'
-import { LinksList } from "../linksList"
+import { LinksList } from "../../linksList"
 
 export function AsideMenu() {
     return(
