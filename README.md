@@ -16,8 +16,10 @@ pnpm dev
 ```
 
 # Iterations
-1. Setup graphQL - Apollo Client & Apollo Server.
-2. Create a photos list for communicate to frontend by graphql.
-4. Make types, querys, resolvers and mutations for manipulate the entities in graphQL.
+1. Setup graphQL - Apollo Client & Apollo Server. ✅
+2. Create a photos list for communicate to frontend by graphql. ✅
+4. Make types, querys, resolvers and mutations for manipulate the entities in graphQL. ✅
 5. Improve graphQL archictecture.
 3. Construct the website layout
+    1. Develop the header ✅
+    2. Develop the gallery
