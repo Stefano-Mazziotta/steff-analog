@@ -42,11 +42,18 @@ export const typeDefs = `#graphql
   }
 
   type Src {
-    id: ID!,
-    url: String!,
-    quality: Quality!
-    # photo: Photo
-  }
+  raw: PhotoFile!
+  full: PhotoFile!
+  regular: PhotoFile!
+  small: PhotoFile!
+  thumb: PhotoFile!
+}
+
+type PhotoFile {
+  id: ID!
+  url: String!
+  name: String!
+}
 
   type Photo {
     id: ID!
@@ -59,7 +66,7 @@ export const typeDefs = `#graphql
     camera: Camera!
     location: Location!
     category: Category!
-    src: [Src!]!
+    src: Src!
     createdTimestamp: Int!
   }
 
