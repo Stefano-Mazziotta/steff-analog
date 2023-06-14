@@ -3,6 +3,7 @@ import { gql } from "@apollo/client"
 import Image from "next/image"
 
 import styles from './styles.module.css';
+import { Gallery } from "@/components/gallery";
 
 const query = gql`
   query GetPhotos {
@@ -28,25 +29,7 @@ export default async function HomePage() {
   
   return (
     <main>
-      <section className={styles.gallery}>
-      {photos.map(photo => {
-        return (
-          <ul key={photo.id}>
-            <li className={styles.photoContainer}>
-              <Image 
-                src={photo.src.regular.url}
-                alt={photo.description} 
-                width={200} 
-                height={200}
-                className={styles.photo}
-              />
-            </li>
-            <li>{photo.description}</li>
-            <li>{photo.shootDate}</li>
-          </ul>
-        )
-        })}
-      </section>
+      <Gallery photos={photos} />
     </main>
   )
 }
