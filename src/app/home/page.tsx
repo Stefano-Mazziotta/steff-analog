@@ -28,8 +28,7 @@ export default async function HomePage() {
   
   return (
     <main>
-      <p>test</p>
-      {/* <Gallery photos={photos} /> */}
+      <Gallery photos={photos} />
     </main>
   )
 }
