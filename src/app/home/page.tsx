@@ -8,8 +8,8 @@ const query = gql`
   query getPhotos {
     getPhotos {
       id
-      height
       width
+      height
       description
       shootDate
       src {
