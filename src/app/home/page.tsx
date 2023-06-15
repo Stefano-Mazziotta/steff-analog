@@ -8,17 +8,17 @@ import { Gallery } from "@/components/gallery";
 const query = gql`
   query GetPhotos {
     getPhotos {
-    id
-    height
-    width
-    description
-    shootDate
-    src {
-      regular {
-        url
-      }      
+      id
+      height
+      width
+      description
+      shootDate
+      src {
+        regular {
+          url
+        }      
+      }
     }
-  }
   }
 `
 export default async function HomePage() {
