@@ -27,9 +27,8 @@ export default async function HomePage() {
   const photos:IPhoto[] = data.getPhotos;
   
   return (
-    <p>test</p>
-    // <main>
-    //   <Gallery photos={photos} />
-    // </main>
+    <main>
+      <Gallery photos={photos} />
+    </main>
   )
 }
