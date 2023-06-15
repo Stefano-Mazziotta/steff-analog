@@ -22,13 +22,14 @@ const query = gql`
 `
 export default async function HomePage() {
   const apolloClient = getApolloClient();
-  const { data } = await apolloClient.query({ query });
+  // const { data } = await apolloClient.query({ query });
   
-  const photos:IPhoto[] = data.getPhotos;
+  // const photos:IPhoto[] = data.getPhotos;
   
   return (
     <main>
-      <Gallery photos={photos} />
+      <p>test</p>
+      {/* <Gallery photos={photos} /> */}
     </main>
   )
 }
