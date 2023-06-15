@@ -20,9 +20,9 @@ const schema = makeExecutableSchema({
 const isProduction = process.env.NODE_ENV === 'production';
 const server = new ApolloServer({
   schema,
-  // introspection: !isProduction,
-  // plugins: isProduction ? [ApolloServerPluginLandingPageDisabled()] : [],
-  // formatError
+  introspection: !isProduction,
+  plugins: isProduction ? [ApolloServerPluginLandingPageDisabled()] : [],
+  formatError
 });
 
 const handler = startServerAndCreateNextHandler<NextRequest>(server, {
@@ -30,11 +30,11 @@ const handler = startServerAndCreateNextHandler<NextRequest>(server, {
 });
 
 export async function GET(request: NextRequest, response:NextResponse) {
-  // await runMiddleware(request, response, cors);
+  await runMiddleware(request, response, cors);
   return handler(request);
 }
 
 export async function POST(request: NextRequest, response: NextResponse) {
-  // await runMiddleware(request, response, cors);
+  await runMiddleware(request, response, cors);
   return handler(request);
 }

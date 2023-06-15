@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 import { Gallery } from "@/components/gallery";
 
 const query = gql`
-  query GetPhotos {
+  query getPhotos {
     getPhotos {
       id
       height
