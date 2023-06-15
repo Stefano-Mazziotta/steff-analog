@@ -3,6 +3,7 @@ export const photos = [
         id: 1,
         width: 4450,
         height: 2794,
+        title: "Example Title",
         description: "Ercolano roman statue",
         shootDate: "10/10/2022",
         film: {
@@ -72,6 +73,7 @@ export const photos = [
         id: 2,
         width: 2899,
         height: 4519,
+        title: "Example Title",
         description: "Roman sanctuary of ercolano",
         shootDate: "10/10/2022",
         film: {
@@ -142,6 +144,7 @@ export const photos = [
         id: 3,
         width: 2056,
         height: 3319,
+        title: "Example Title",
         description: "Il David di Michele Angelo",
         shootDate: "01/11/2022",
         film: {
@@ -211,6 +214,7 @@ export const photos = [
         id: 4,
         width: 3328,
         height: 2056,
+        title: "Example Title",
         description: "Autumn colors in the park",
         shootDate: "09/28/2022",
         film: {
@@ -280,6 +284,7 @@ export const photos = [
         id: 5,
         width: 3344,
         height: 2111,
+        title: "Example Title",
         description: "Teatro del Scalla",
         shootDate: "15/11/2022",
         film: {
@@ -349,6 +354,7 @@ export const photos = [
         id: 6,
         width: 3000,
         height: 2000,
+        title: "Example Title",
         description: "Duomo Vitro",
         shootDate: "07/20/2022",
         film: {
@@ -418,6 +424,7 @@ export const photos = [
         id: 7,
         width: 3000,
         height: 2000,
+        title: "Example Title",
         description: "Castello Sforza",
         shootDate: "07/20/2022",
         film: {
