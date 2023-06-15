@@ -20,7 +20,7 @@ const schema = makeExecutableSchema({
 const isProduction = process.env.NODE_ENV === 'production';
 const server = new ApolloServer({
   schema,
-  introspection: !isProduction,
+  // introspection: !isProduction,
   plugins: isProduction ? [ApolloServerPluginLandingPageDisabled()] : [],
   formatError
 });
