@@ -72,21 +72,21 @@ type PhotoFile {
 
   type Query { 
     getPhotos: [Photo!]!
-    # getPhotoById(id: ID!): Photo
+    getPhotoById(id: ID!): Photo
   }
-  # type Mutation {
-  #   addPhoto(input: AddPhotoInput!): String!
-  # }
+  type Mutation {
+    addPhoto(input: AddPhotoInput!): String!
+  }
 
-  # input AddPhotoInput {
-  #   height: Int!
-  #   width: Int!
-  #   title: String!
-  #   description: String!
-  #   shootDate: String!
-  #   filmId: ID!
-  #   cameraId: ID!
-  #   locationId: ID!
-  #   categoryId: ID!
-  # }
+  input AddPhotoInput {
+    height: Int!
+    width: Int!
+    title: String!
+    description: String!
+    shootDate: String!
+    filmId: ID!
+    cameraId: ID!
+    locationId: ID!
+    categoryId: ID!
+  }
 `;
