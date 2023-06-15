@@ -9,20 +9,19 @@ interface GetPhotoByIdArgs {
 export const resolvers: IResolvers = {
 
   Query: {
-    getPhotos: () => photos
+    getPhotos: () => photos,  
+    getPhotoById: (
+      parent,
+      args: GetPhotoByIdArgs,
+      contextValue,
+      info
+    ) => {
+      return photos.find(photo => photo.id == args.id)
+    }
+  },
+  Mutation: {
+    addPhoto: (root, args) => {
+      return `El titulo de la nueva foto es: '${args.input.title}'`
+    }
   }
-  //   getPhotoById: (
-  //     parent,
-  //     args: GetPhotoByIdArgs,
-  //     contextValue,
-  //     info
-  //   ) => {
-  //     return photos.find(photo => photo.id == args.id)
-  //   }
-  // },
-  // Mutation: {
-  //   addPhoto: (root, args) => {
-  //     return `El titulo de la nueva foto es: '${args.input.title}'`
-  //   }
-  // }
 };
