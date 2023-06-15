@@ -30,11 +30,11 @@ const handler = startServerAndCreateNextHandler<NextRequest>(server, {
 });
 
 export async function GET(request: NextRequest, response:NextResponse) {
-  await runMiddleware(request, response, cors);
+  // await runMiddleware(request, response, cors);
   return handler(request);
 }
 
 export async function POST(request: NextRequest, response: NextResponse) {
-  await runMiddleware(request, response, cors);
+  // await runMiddleware(request, response, cors);
   return handler(request);
 }
