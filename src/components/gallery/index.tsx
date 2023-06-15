@@ -12,7 +12,7 @@ export function Gallery({ photos }: { photos: IPhoto[] }) {
             <ul key={photo.id} className={`${styles.list} ${orientation}`}>
               <li className={styles.photoWrapper}>
                 <Image
-                  src={srcComplete}
+                  src={photo.src.regular.url}
                   alt={photo.description}
                   width={photo.width}
                   height={photo.height}

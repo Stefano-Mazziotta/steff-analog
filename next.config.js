@@ -13,7 +13,7 @@ const nextConfig = {
         ];
     },
     images: {
-      domains: ['localhost'],
+      domains: ['localhost', 'steff-analog-git-dev-stefano-mazziotta.vercel.app', 'steff-analog.vercel.app'],
     }
 }
 
