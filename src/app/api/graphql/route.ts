@@ -21,7 +21,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const server = new ApolloServer({
   schema,
   // introspection: !isProduction,
-  plugins: isProduction ? [ApolloServerPluginLandingPageDisabled()] : [],
+  // plugins: isProduction ? [ApolloServerPluginLandingPageDisabled()] : [],
   formatError
 });
 
