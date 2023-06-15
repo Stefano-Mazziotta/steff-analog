@@ -43,27 +43,27 @@ export const photos = [
         src: {
             raw: {
                 id: 1,
-                url: "http://localhost:3000/gallery/raw/1.jpg",
+                url: "/gallery/raw/1.jpg",
                 name: "raw"
             },
             full: {
                 id: 2,
-                url: "http://localhost:3000/gallery/full/1.jpg",
+                url: "/gallery/full/1.jpg",
                 name: "full"
             },
             regular: {
                 id: 3,
-                url: "http://localhost:3000/gallery/regular/1.jpg",
+                url: "/gallery/regular/1.jpg",
                 name: "regular"
             },
             small: {
                 id: 4,
-                url: "http://localhost:3000/gallery/small/1.jpg",
+                url: "/gallery/small/1.jpg",
                 name: "small"
             },
             thumb: {
                 id: 5,
-                url: "http://localhost:3000/gallery/thumb/1.jpg",
+                url: "/gallery/thumb/1.jpg",
                 name: "thumb"
             }
         },
@@ -113,28 +113,28 @@ export const photos = [
         src: {
             raw: {
                 id: 6,
-                url: "http://localhost:3000/gallery/raw/2.jpg",
+                url: "/gallery/raw/2.jpg",
                 name: "raw"
             },
             full: {
                 id: 7,
-                url: "http://localhost:3000/gallery/full/2.jpg",
+                url: "/gallery/full/2.jpg",
                 name: "full"
             },
             regular: {
                 id: 8,
-                url: "http://localhost:3000/gallery/regular/2.jpg",
+                url: "/gallery/regular/2.jpg",
                 name: "regular"
             },
             small: {
                 id: 9,
-                url: "http://localhost:3000/gallery/small/2.jpg",
+                url: "/gallery/small/2.jpg",
                 name: "small"
 
             },
             thumb: {
                 id: 10,
-                url: "http://localhost:3000/gallery/thumb/2.jpg",
+                url: "/gallery/thumb/2.jpg",
                 name: "thumb"
             }
         },
@@ -184,27 +184,27 @@ export const photos = [
         src: {
             raw: {
                 id: 11,
-                url: "http://localhost:3000/gallery/raw/david-1-raw.jpg",
+                url: "/gallery/raw/david-1-raw.jpg",
                 name: "raw"
             },
             full: {
                 id: 12,
-                url: "http://localhost:3000/gallery/full/david-1-full.jpg",
+                url: "/gallery/full/david-1-full.jpg",
                 name: "full"
             },
             regular: {
                 id: 13,
-                url: "http://localhost:3000/gallery/regular/david-1-regular.jpg",
+                url: "/gallery/regular/david-1-regular.jpg",
                 name: "regular"
             },
             small: {
                 id: 14,
-                url: "http://localhost:3000/gallery/small/david-1-small.jpg",
+                url: "/gallery/small/david-1-small.jpg",
                 name: "small"
             },
             thumb: {
                 id: 15,
-                url: "http://localhost:3000/gallery/thumb/david-1-thumb.jpg",
+                url: "/gallery/thumb/david-1-thumb.jpg",
                 name: "thumb"
             }
         },
@@ -254,27 +254,27 @@ export const photos = [
         src: {
             raw: {
                 id: 16,
-                url: "http://localhost:3000/gallery/raw/david-2-raw.jpg",
+                url: "/gallery/raw/david-2-raw.jpg",
                 name: "raw"
             },
             full: {
                 id: 17,
-                url: "http://localhost:3000/gallery/full/david-2-full.jpg",
+                url: "/gallery/full/david-2-full.jpg",
                 name: "full"
             },
             regular: {
                 id: 18,
-                url: "http://localhost:3000/gallery/regular/david-2-regular.jpg",
+                url: "/gallery/regular/david-2-regular.jpg",
                 name: "regular"
             },
             small: {
                 id: 19,
-                url: "http://localhost:3000/gallery/small/david-2-small.jpg",
+                url: "/gallery/small/david-2-small.jpg",
                 name: "small"
             },
             thumb: {
                 id: 20,
-                url: "http://localhost:3000/gallery/thumb/david-2-thumb.jpg",
+                url: "/gallery/thumb/david-2-thumb.jpg",
                 name: "thumb"
             }
         },
@@ -324,27 +324,27 @@ export const photos = [
         src: {
             raw: {
                 id: 21,
-                url: "http://localhost:3000/gallery/raw/teatro-milan-raw.jpg",
+                url: "/gallery/raw/teatro-milan-raw.jpg",
                 name: "raw"
             },
             full: {
                 id: 22,
-                url: "http://localhost:3000/gallery/full/teatro-milan-full.jpg",
+                url: "/gallery/full/teatro-milan-full.jpg",
                 name: "full"
             },
             regular: {
                 id: 23,
-                url: "http://localhost:3000/gallery/regular/teatro-milan-regular.jpg",
+                url: "/gallery/regular/teatro-milan-regular.jpg",
                 name: "regular"
             },
             small: {
                 id: 24,
-                url: "http://localhost:3000/gallery/small/teatro-milan-small.jpg",
+                url: "/gallery/small/teatro-milan-small.jpg",
                 name: "small"
             },
             thumb: {
                 id: 25,
-                url: "http://localhost:3000/gallery/thumb/teatro-milan-thumb.jpg",
+                url: "/gallery/thumb/teatro-milan-thumb.jpg",
                 name: "thumb"
             }
         },
@@ -394,27 +394,27 @@ export const photos = [
         src: {
             raw: {
                 id: 21,
-                url: "http://localhost:3000/gallery/raw/vitro-raw.jpg",
+                url: "/gallery/raw/vitro-raw.jpg",
                 name: "raw"
             },
             full: {
                 id: 22,
-                url: "http://localhost:3000/gallery/full/vitro-full.jpg",
+                url: "/gallery/full/vitro-full.jpg",
                 name: "full"
             },
             regular: {
                 id: 23,
-                url: "http://localhost:3000/gallery/regular/vitro-regular.jpg",
+                url: "/gallery/regular/vitro-regular.jpg",
                 name: "regular"
             },
             small: {
                 id: 24,
-                url: "http://localhost:3000/gallery/small/vitro-small.jpg",
+                url: "/gallery/small/vitro-small.jpg",
                 name: "small"
             },
             thumb: {
                 id: 25,
-                url: "http://localhost:3000/gallery/thumb/vitro-thumb.jpg",
+                url: "/gallery/thumb/vitro-thumb.jpg",
                 name: "thumb"
             }
         },
@@ -464,27 +464,27 @@ export const photos = [
         src: {
             raw: {
                 id: 21,
-                url: "http://localhost:3000/gallery/raw/castelo-sforza-raw.jpg",
+                url: "/gallery/raw/castelo-sforza-raw.jpg",
                 name: "raw"
             },
             full: {
                 id: 22,
-                url: "http://localhost:3000/gallery/full/castelo-sforza-full.jpg",
+                url: "/gallery/full/castelo-sforza-full.jpg",
                 name: "full"
             },
             regular: {
                 id: 23,
-                url: "http://localhost:3000/gallery/regular/castelo-sforza-regular.jpg",
+                url: "/gallery/regular/castelo-sforza-regular.jpg",
                 name: "regular"
             },
             small: {
                 id: 24,
-                url: "http://localhost:3000/gallery/small/castelo-sforza-small.jpg",
+                url: "/gallery/small/castelo-sforza-small.jpg",
                 name: "small"
             },
             thumb: {
                 id: 25,
-                url: "http://localhost:3000/gallery/thumb/castelo-sforza-thumb.jpg",
+                url: "/gallery/thumb/castelo-sforza-thumb.jpg",
                 name: "thumb"
             }
         },
