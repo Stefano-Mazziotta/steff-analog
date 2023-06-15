@@ -24,7 +24,7 @@ export default async function HomePage() {
   const apolloClient = getApolloClient();
   const { data } = await apolloClient.query({ query });
   
-  // const photos:IPhoto[] = data.getPhotos;
+  const photos:IPhoto[] = data.getPhotos;
   
   return (
     <p>test</p>
