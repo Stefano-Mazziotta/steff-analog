@@ -22,7 +22,7 @@ const server = new ApolloServer({
   schema,
   // introspection: !isProduction,
   // plugins: isProduction ? [ApolloServerPluginLandingPageDisabled()] : [],
-  formatError
+  // formatError
 });
 
 const handler = startServerAndCreateNextHandler<NextRequest>(server, {
