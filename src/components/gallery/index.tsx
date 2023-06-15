@@ -7,12 +7,12 @@ export function Gallery({ photos }: { photos: IPhoto[] }) {
       <div className={styles.gridContainer}>
         {photos.map(photo => {
           const orientation = photo.width > photo.height ? styles.horizontal : styles.vertical;
-
+          const srcComplete = `${process.env.NEXT_PUBLIC_BASE_URL}${photo.src.regular.url}`
           return (
             <ul key={photo.id} className={`${styles.list} ${orientation}`}>
               <li className={styles.photoWrapper}>
                 <Image
-                  src={photo.src.regular.url}
+                  src={srcComplete}
                   alt={photo.description}
                   width={photo.width}
                   height={photo.height}
