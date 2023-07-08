@@ -1,111 +1,106 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations  
-}
-
 generator client {
   provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("POSTGRES_PRISMA_URL")
+  directUrl         = env("POSTGRES_URL_NON_POOLING")
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Country {
   id      Int      @id @default(autoincrement())
   name    String   @unique
-  cities  City[]
   cameras Camera[]
+  cities  City[]
   films   Film[]
 }
 
 model City {
-  id        Int    @id @default(autoincrement())
-  name      String 
-  country   Country @relation(fields: [countryId], references: [id])
-  countryId Int 
+  id        Int        @id @default(autoincrement())
+  name      String
+  countryId Int
+  country   Country    @relation(fields: [countryId], references: [id])
   locations Location[]
 }
 
 model Location {
-  id     Int        @id @default(autoincrement())  
+  id     Int     @id @default(autoincrement())
   name   String
-  city   City @relation(fields: [cityId], references: [id])
   cityId Int
+  city   City    @relation(fields: [cityId], references: [id])
   photos Photo[]
 }
 
 model Camera {
-  id          Int    @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
-  createdYear Int 
-  country     Country @relation(fields: [countryId], references: [id])
+  createdYear Int
   countryId   Int
-  photos      Photo[]  
+  country     Country @relation(fields: [countryId], references: [id])
+  photos      Photo[]
 }
 
 model Film {
-  id          Int    @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
-  createdYear Int 
-  country     Country @relation(fields: [countryId], references: [id])
+  createdYear Int
   countryId   Int
+  country     Country @relation(fields: [countryId], references: [id])
   photos      Photo[]
 }
 
 model Category {
-  id    Int    @id @default(autoincrement())
-  name  String
-  photoCategories  Photo_category[]
+  id              Int              @id @default(autoincrement())
+  name            String
+  photoCategories Photo_category[]
 }
 
 model Photo {
-  id          Int    @id @default(autoincrement())
+  id          Int              @id @default(autoincrement())
   height      Int
   width       Int
-  title       Int
-  description Int
+  title       String
+  description String
   shootDate   DateTime
-  published   Boolean    @default(false)
-  film        Film @relation(fields: [filmId], references: [id])
+  published   Boolean          @default(false)
   filmId      Int
-  camera      Camera @relation(fields: [cameraId], references: [id])
   cameraId    Int
-  location    Location @relation(fields: [locationId], references: [id])
   locationId  Int
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime?         @updatedAt
+  camera      Camera           @relation(fields: [cameraId], references: [id])
+  film        Film             @relation(fields: [filmId], references: [id])
+  location    Location         @relation(fields: [locationId], references: [id])
   categories  Photo_category[]
   src         Src[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
 }
 
 model Photo_category {
-  id          Int    @id @default(autoincrement())
-  category    Category @relation(fields: [categoryId], references: [id])
-  categoryId  Int
-  photo       Photo @relation(fields: [photoId], references: [id])
-  photoId     Int
+  id         Int      @id @default(autoincrement())
+  categoryId Int
+  photoId    Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  photo      Photo    @relation(fields: [photoId], references: [id])
 }
 
 model Quality {
-  id    Int    @id @default(autoincrement())
-  name  String
-  src Src[]
+  id   Int    @id @default(autoincrement())
+  name String
+  src  Src[]
 }
 
 model Src {
-  id        Int    @id @default(autoincrement())
-  url       String @unique
-  photo     Photo @relation(fields: [photoId], references: [id])
+  id        Int     @id @default(autoincrement())
+  url       String  @unique
   photoId   Int
-  quality   Quality @relation(fields: [qualityId], references: [id])
   qualityId Int
+  photo     Photo   @relation(fields: [photoId], references: [id])
+  quality   Quality @relation(fields: [qualityId], references: [id])
 }
-
 
 enum Role {
   USER
   ADMIN
 }
-
