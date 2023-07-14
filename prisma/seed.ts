@@ -1,11 +1,12 @@
 import { PrismaClient, Country, City, Location, Photo, Prisma, Camera, Film, Quality  } from '@prisma/client'
 
-/**
+/*
  *  - mejorar respuesta de las funciones "createMany". true si se creó, false si no se creó.
  *  - mover las interfaces del seed.ts
  *  - revisar que es "Prisma.BatchPayload" -> respuesta de create many
+ *  - mover los métodos que impactan a la base de datos
  * 
- */
+*/
 
 interface ICreateCountry {
   name: string
@@ -34,17 +35,21 @@ interface ICreateFilm {
 }
 
 interface ICreatePhoto {
-    height: number
-    width: number
-    title: string
-    description: string
-    shootDate: Date
-    published: boolean
-    filmId: number
-    cameraId: number
-    locationId: number
-    createdAt: Date
-    updatedAt: Date | null
+  height: number
+  width: number
+  title: string
+  description: string
+  shootDate: Date
+  published: boolean
+  filmId: number
+  cameraId: number
+  locationId: number
+  createdAt: Date
+  updatedAt: Date | null
+}
+
+interface ICreateQuality {
+  name: string
 }
 
 const prisma = new PrismaClient()
@@ -132,12 +137,17 @@ async function createFilm(newFilm: ICreateFilm): Promise<Film> {
 
 async function createPhoto(newPhoto: ICreatePhoto): Promise<Photo> {
   const createdPhoto = await prisma.photo.create({
-    data: {
-      ...newPhoto,
-    },
+    data: newPhoto
   })
 
   return createdPhoto
+}
+
+async function createManyQualities(newQualities: ICreateQuality[]): Promise<Prisma.BatchPayload> {
+  const batchPayload = await prisma.quality.createMany({
+    data: newQualities
+  })
+  return batchPayload
 }
 // --- end --- //
 
@@ -220,32 +230,25 @@ async function seedLocation(): Promise<void> {
   await createManyLocations(newLocations)
 }
 async function seedQuality(): Promise<void> {
-  const newQualities: Quality[] = [
+  const newQualities: ICreateQuality[] = [
     {
-      id: 0,
       name: "raw"
     },
     {
-      id: 0,
       name: "full"
     },
     {
-      id:0,
       name: "regular",
     },
     {
-      id: 0,
       name: "small"    
     },
     {
-      id: 0,
       name: "thumb"
     }
   ]
 
-  await prisma.quality.createMany({
-    data: newQualities
-  })
+  await createManyQualities(newQualities)
 }
 // --- end --- //
 
@@ -271,8 +274,7 @@ async function seed() {
     const pentaxCamera = await createCamera(newCamera)
 
     // create film
-    const newFilm:Film = {
-      id: 0,
+    const newFilm:ICreateFilm = {
       name: "Kodak Ektar 100",
       createdYear: 2008,
       countryId: japan.id      
@@ -291,7 +293,7 @@ async function seed() {
       width: 3328,
       title: "Il David",
       description: "Il David di Micheleangelo",
-      shootDate: new Date("01-11-2022"),
+      shootDate: new Date("2022-11-01"),
       published: true,
       filmId: ektar100Film.id,
       cameraId: pentaxCamera.id,
