@@ -63,13 +63,13 @@ model Photo {
   width       Int
   title       String
   description String
-  shootDate   DateTime
+  shootDate   DateTime         @db.Date
   published   Boolean          @default(false)
   filmId      Int
   cameraId    Int
   locationId  Int
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime?         @updatedAt
+  createdAt   DateTime         @default(now()) @db.Date
+  updatedAt   DateTime?        @updatedAt @db.Date
   camera      Camera           @relation(fields: [cameraId], references: [id])
   film        Film             @relation(fields: [filmId], references: [id])
   location    Location         @relation(fields: [locationId], references: [id])
