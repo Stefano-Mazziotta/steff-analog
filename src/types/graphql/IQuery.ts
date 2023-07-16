@@ -1,6 +1,6 @@
 import { Photo, Category } from '@prisma/client'
   
-interface Query {
+interface IQuery {
   photos: Photo[];
   categories: Category[];
 }

@@ -1,0 +1,3 @@
+interface ICreateQuality {
+    name: string
+}

@@ -2,55 +2,10 @@ import { PrismaClient, Country, City, Location, Photo, Prisma, Camera, Film, Qua
 
 /*
  *  - mejorar respuesta de las funciones "createMany". true si se creó, false si no se creó.
- *  - mover las interfaces del seed.ts
  *  - revisar que es "Prisma.BatchPayload" -> respuesta de create many
  *  - mover los métodos que impactan a la base de datos
  * 
 */
-
-interface ICreateCountry {
-  name: string
-}
-
-interface ICreateCity {
-  name: string
-  countryId: number
-}
-
-interface ICreateLocation {
-  name: string
-  cityId: number
-}
-
-interface ICreateCamera {
-  name: string
-  createdYear: number
-  countryId: number
-}
-
-interface ICreateFilm {
-  name: string
-  createdYear: number
-  countryId: number
-}
-
-interface ICreatePhoto {
-  height: number
-  width: number
-  title: string
-  description: string
-  shootDate: Date
-  published: boolean
-  filmId: number
-  cameraId: number
-  locationId: number
-  createdAt: Date
-  updatedAt: Date | null
-}
-
-interface ICreateQuality {
-  name: string
-}
 
 const prisma = new PrismaClient()
 
@@ -148,6 +103,22 @@ async function createManyQualities(newQualities: ICreateQuality[]): Promise<Pris
     data: newQualities
   })
   return batchPayload
+}
+
+async function createSrc(photoId: number, fileName: string){
+  const qualities = await prisma.quality.findMany()
+    qualities.forEach(async quality => {
+      const { id, name } = quality
+
+      await prisma.src.create({
+        data: {
+          url: `galery/${name}/${fileName}-${name}`,
+          photoId: photoId,
+          qualityId: id
+        }
+      })
+
+    })
 }
 // --- end --- //
 
@@ -301,20 +272,8 @@ async function seed() {
       createdAt: new Date(),
       updatedAt: null
     }
-    const davidPhoto = await createPhoto(newPhoto)
-    const qualities = await prisma.quality.findMany()
-    qualities.forEach(async quality => {
-      const { id, name } = quality
-
-      await prisma.src.create({
-        data: {
-          url: `galery/${name}/david-2-${name}`,
-          photoId: davidPhoto.id,
-          qualityId: id
-        }
-      })
-
-    })
+    const davidPhoto = await createPhoto(newPhoto)    
+    await createSrc(davidPhoto.id, "david-2")
 
   } catch (error) {
     throw new Error(`Poblate db error: ${error}`)
