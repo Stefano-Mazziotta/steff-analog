@@ -1,8 +1,9 @@
-import { getApolloClient } from "@/lib/client/apolloClient"
+import { getApolloClient } from "@/frontend/lib/apolloClient"
 import { gql } from "@apollo/client"
 
 import styles from './styles.module.css';
-import { Gallery } from "@/components/gallery";
+import { Gallery } from "@/frontend/components/gallery";
+import { Photo } from "@prisma/client";
 
 const query = gql`
   query getPhotos {
@@ -24,7 +25,7 @@ export default async function HomePage() {
   const apolloClient = getApolloClient();
   const { data } = await apolloClient.query({ query });
   
-  const photos:IPhoto[] = data.getPhotos;
+  const photos:Photo[] = data.getPhotos;
   
   return (
     <main>

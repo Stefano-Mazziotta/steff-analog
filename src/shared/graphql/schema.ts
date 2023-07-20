@@ -42,18 +42,18 @@ export const typeDefs = `#graphql
   }
 
   type Src {
-  raw: PhotoFile!
-  full: PhotoFile!
-  regular: PhotoFile!
-  small: PhotoFile!
-  thumb: PhotoFile!
-}
+    raw: PhotoFile!
+    full: PhotoFile!
+    regular: PhotoFile!
+    small: PhotoFile!
+    thumb: PhotoFile!
+  }
 
-type PhotoFile {
-  id: ID!
-  url: String!
-  name: String!
-}
+  type PhotoFile {
+    id: ID!
+    url: String!
+    name: String!
+  }
 
   type Photo {
     id: ID!
@@ -74,6 +74,7 @@ type PhotoFile {
     getPhotos: [Photo!]!
     getPhotoById(id: ID!): Photo
   }
+  
   type Mutation {
     addPhoto(input: AddPhotoInput!): String!
   }

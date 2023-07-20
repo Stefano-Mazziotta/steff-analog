@@ -1,5 +1,5 @@
 import { IResolvers } from "@graphql-tools/utils";
-import { photos } from "@/constant/photos";
+import { photos } from "@/shared/constants/photos";
 
 interface GetPhotoByIdArgs {
   id: number

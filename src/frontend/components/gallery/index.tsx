@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import styles from './styles.module.css';
+import { Photo } from '@prisma/client';
 
-export function Gallery({ photos }: { photos: IPhoto[] }) {
+export function Gallery({ photos }: { photos: Photo[] }) {
   return (
     <section className={styles.galleryContainer}>
       <div className={styles.gridContainer}>
