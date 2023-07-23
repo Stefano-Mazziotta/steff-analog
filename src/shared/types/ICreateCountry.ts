@@ -1,3 +1,0 @@
-interface ICreateCountry {
-    name: string
-}

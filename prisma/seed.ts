@@ -130,7 +130,7 @@ async function createManyQualities(newQualities: Prisma.QualityCreateManyInput[]
 }
 
 async function createSrc(photoId: number, fileName: string){
-  const qualities = await prisma.quality.findMany()
+  const qualities:Quality[] = await prisma.quality.findMany()
     qualities.forEach(async quality => {
       const { id, name } = quality
 
