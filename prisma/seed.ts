@@ -1,17 +1,49 @@
 import { PrismaClient, Country, City, Location, Photo, Prisma, Camera, Film, Quality  } from '@prisma/client'
 
 /*
+*  - mover los métodos que impactan a la base de datos [repository pattern]
  *  - mejorar respuesta de las funciones "createMany". true si se creó, false si no se creó.
  *  - revisar que es "Prisma.BatchPayload" -> respuesta de create many
- *  - mover los métodos que impactan a la base de datos
  * 
 */
+
+// --- Ejemplo 2 prisma
+// function queryFromCompany(companyId: number, where: Prisma.UserWhereInput) {
+//   return prisma.user.findMany({
+//     where: { company: { id: companyId }, ...where },
+//   })
+// }
+// const user = await queryFromCompany(1, { name: 'Paul' })
+
+// --- Ejemplo 2 prisma
+// function fromCompany(companyId: number): Prisma.UserWhereInput {
+//   return { companyId }
+// }
+
+// function filterRecent(
+//   start: Prisma.DateTimeFilter['equals'],
+//   end: Prisma.DateTimeFilter['equals']
+// ): Pick<Prisma.UserWhereInput, 'createdAt'> {
+//   return {
+//     createdAt: {
+//       gte: start,
+//       lte: end,
+//     },
+//   }
+// }
+
+// const users = await prisma.user.findMany({
+//     where: {
+//       ...fromCompany(companyId),
+//       ...filterRecent(startDate, endDate),
+//     },
+//   })
 
 const prisma = new PrismaClient()
 
 // --- save to database functions --- //
 
-async function createCountry(newCountry:ICreateCountry): Promise<Country> {
+async function createCountry(newCountry:Prisma.CountryCreateInput): Promise<Country> {
   const createdCountry = await prisma.country.create({
     data: newCountry,
   })
@@ -19,7 +51,7 @@ async function createCountry(newCountry:ICreateCountry): Promise<Country> {
   return createdCountry
 }
 
-async function createManyCountries(newCountries: ICreateCountry[]): Promise<Prisma.BatchPayload>{
+async function createManyCountries(newCountries: Prisma.CountryCreateManyInput[]): Promise<Prisma.BatchPayload>{
   const prismaResponse = await prisma.country.createMany({
     data: newCountries
   })
@@ -27,24 +59,20 @@ async function createManyCountries(newCountries: ICreateCountry[]): Promise<Pris
   return prismaResponse
 }
 
-async function createCity(newCity:ICreateCity): Promise<City> {
-  const { name, countryId } = newCity;
+async function createCity(newCity:Prisma.CityCreateInput): Promise<City> {
+  const { name, country } = newCity;
 
   const createdCity = await prisma.city.create({
     data: {
       name,
-      country: {
-        connect: {
-          id: countryId,
-        }
-      }
+      country
     }
   })
 
   return createdCity
 }
 
-async function createManyCities(newCities: ICreateCity[]): Promise<Prisma.BatchPayload> {
+async function createManyCities(newCities: Prisma.CityCreateManyInput[]): Promise<Prisma.BatchPayload> {
   const prismaResponse = await prisma.city.createMany({
     data: newCities,
   })
@@ -52,45 +80,41 @@ async function createManyCities(newCities: ICreateCity[]): Promise<Prisma.BatchP
   return prismaResponse
 }
 
-async function createLocation(newLocation: ICreateLocation): Promise<Location> {
-  const {name, cityId} = newLocation
+async function createLocation(newLocation: Prisma.LocationCreateInput): Promise<Location> {
+  const {name, city} = newLocation
   const location = await prisma.location.create({
     data: {
       name,
-      city: {
-        connect: {
-          id: cityId,
-        },
-      },
+      city
     },
   })
 
   return location
 }
 
-async function createManyLocations(newLocations: ICreateLocation[]): Promise<Prisma.BatchPayload> {
+async function createManyLocations(newLocations: Prisma.LocationCreateManyInput[]): Promise<Prisma.BatchPayload> {
   const batchPayload = await prisma.location.createMany({
-    data: newLocations,
+    data: newLocations
   })
 
   return batchPayload
 }
 
-async function createCamera(newCamera: ICreateCamera): Promise<Camera> {
+async function createCamera(newCamera: Prisma.CameraCreateInput): Promise<Camera> {
   const createdCamera = await prisma.camera.create({
     data: newCamera
   })
   return createdCamera
 }
 
-async function createFilm(newFilm: ICreateFilm): Promise<Film> {
+async function createFilm(newFilm: Prisma.FilmCreateInput): Promise<Film> {
   const createdFilm = await prisma.film.create({
     data: newFilm
   })
   return createdFilm
 }
 
-async function createPhoto(newPhoto: ICreatePhoto): Promise<Photo> {
+async function createPhoto(newPhoto: Prisma.PhotoCreateInput): Promise<Photo> {
   const createdPhoto = await prisma.photo.create({
     data: newPhoto
   })
@@ -98,7 +122,7 @@ async function createPhoto(newPhoto: ICreatePhoto): Promise<Photo> {
   return createdPhoto
 }
 
-async function createManyQualities(newQualities: ICreateQuality[]): Promise<Prisma.BatchPayload> {
+async function createManyQualities(newQualities: Prisma.QualityCreateManyInput[]): Promise<Prisma.BatchPayload> {
   const batchPayload = await prisma.quality.createMany({
     data: newQualities
   })
@@ -124,7 +148,7 @@ async function createSrc(photoId: number, fileName: string){
 
 // --- seed functions --- //
 async function seedCountry(): Promise<void> {
-  const newCountries: ICreateCountry[] = [
+  const newCountries: Prisma.CountryCreateManyInput[] = [
     { name: "Argentina"},
     { name: "Italy"},
     { name: "Japan"},
@@ -142,7 +166,7 @@ async function seedCity(): Promise<void> {
 
   if(!argentina || !italy) return;
 
-  const newCities:ICreateCity[] = [
+  const newCities:Prisma.CityCreateManyInput[] = [
     {
       name: 'Rosario',
       countryId: argentina.id
@@ -184,7 +208,7 @@ async function seedLocation(): Promise<void> {
 
   if(!rosario || !firenze) return;
 
-  const newLocations: ICreateLocation[] = [
+  const newLocations: Prisma.LocationCreateManyInput[] = [
     {
       name: "Monumento a la Bandera Argentina",
       cityId: rosario.id
@@ -201,7 +225,7 @@ async function seedLocation(): Promise<void> {
   await createManyLocations(newLocations)
 }
 async function seedQuality(): Promise<void> {
-  const newQualities: ICreateQuality[] = [
+  const newQualities: Prisma.QualityCreateManyInput[] = [
     {
       name: "raw"
     },
@@ -237,18 +261,22 @@ async function seed() {
     })
     if (!japan) return
     
-    const newCamera:ICreateCamera = {
+    const newCamera:Prisma.CameraCreateInput = {
       name: "Asahi Pentax K1000",
       createdYear: 1976,
-      countryId: japan.id,
+      country: {
+        connect: japan
+      }
     }
     const pentaxCamera = await createCamera(newCamera)
 
     // create film
-    const newFilm:ICreateFilm = {
+    const newFilm:Prisma.FilmCreateInput = {
       name: "Kodak Ektar 100",
       createdYear: 2008,
-      countryId: japan.id      
+      country: {
+        connect: japan
+      }
     }    
     const ektar100Film = await createFilm(newFilm)
     
@@ -259,18 +287,25 @@ async function seed() {
     if(!galleriaAcademiaLocation) return
 
     // Create photos
-    const newPhoto:ICreatePhoto = {
+    const newPhoto:Prisma.PhotoCreateInput = {
       height: 2056,
       width: 3328,
       title: "Il David",
       description: "Il David di Micheleangelo",
       shootDate: new Date("2022-11-01"),
       published: true,
-      filmId: ektar100Film.id,
-      cameraId: pentaxCamera.id,
-      locationId: galleriaAcademiaLocation.id,
+      film: {
+        connect: ektar100Film
+      },
+      camera: {
+        connect: pentaxCamera
+      },
+      location: {
+        connect: galleriaAcademiaLocation
+      },
       createdAt: new Date(),
-      updatedAt: null
+      updatedAt: null,
+      
     }
     const davidPhoto = await createPhoto(newPhoto)    
     await createSrc(davidPhoto.id, "david-2")
