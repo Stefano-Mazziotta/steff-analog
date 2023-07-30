@@ -1,7 +1,6 @@
 import { PrismaClient, Country, City, Location, Prisma, Quality  } from '@prisma/client'
 
 import FilmRepository from '@/backend/entities/film/film.repository';
-import CameraRepository from '@/backend/entities/camera/camera.repository';
 import PhotoRepository from '@/backend/entities/photo/photo.repository';
 import LinkRepository from '@/backend/entities/link/link.repository';
 
@@ -9,13 +8,15 @@ import seedCountry from './seedCountry';
 import seedCity from './seedCity';
 import seedLocation from './seedLocation';
 import seedQuality from './seedQuality';
+import { createApiCameraRepository } from '@/modules/cameras/infrastructure/ApiCameraRepository';
+import { createCamera } from '@/modules/cameras/application/create/createCamera';
 
 const prisma = new PrismaClient()
 
 async function seed() {
   try {
 
-    const _cameraRepository = new CameraRepository()
+    const _cameraRepository = createApiCameraRepository()
     const _filmRepository = new FilmRepository()
     const _photoRepository = new PhotoRepository()
     const _linkRepository = new LinkRepository()
@@ -39,7 +40,7 @@ async function seed() {
       }
     }
     
-    const pentaxCamera = await _cameraRepository.create(prisma, newCamera)
+    const pentaxCamera = await createCamera(_cameraRepository)(newCamera)
 
     // create film
     const newFilm:Prisma.FilmCreateInput = {
