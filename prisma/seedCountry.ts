@@ -1,8 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-import CountryRepository from "@/backend/entities/country/country.repository";
+import { CountryRepository } from "@/modules/countries/domain/CountryRepository";
 
-export default async function seedCountry(prisma: PrismaClient): Promise<void> {
-    const _countryRepository = new CountryRepository()
+export async function seedCountry(_countryRepository: CountryRepository): Promise<void> {
 
     const newCountries: Prisma.CountryCreateManyInput[] = [
         { name: "Argentina" },
@@ -10,5 +9,5 @@ export default async function seedCountry(prisma: PrismaClient): Promise<void> {
         { name: "Japan" },
     ]
 
-    await _countryRepository.createMany(prisma, newCountries);
+    await _countryRepository.createMany(newCountries);
 }
