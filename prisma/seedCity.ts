@@ -1,14 +1,13 @@
-import { PrismaClient, Prisma, Country } from "@prisma/client";
-import CityRepository from "@/backend/entities/city/city.repository";
+import { Prisma, Country } from "@prisma/client";
+import { CityRepository } from "@/modules/cities/domain/CityRepository";
+import { createManyCities } from "@/modules/cities/application/create/createManyCities";
+import { findCountryByName } from "@/modules/countries/application/find/findCityByName";
+import { CountryRepository } from "@/modules/countries/domain/CountryRepository";
 
-export default async function seedCity(prisma:PrismaClient): Promise<void> {
-    const _cityRepository = new CityRepository()
-    const argentina:Country | null = await prisma.country.findFirst({
-      where: {name: "Argentina"} 
-    })
-    const italy:Country | null = await prisma.country.findFirst({
-      where: {name: "Italy"} 
-    })
+export default async function seedCity(_cityRepository: CityRepository, _countryRepository: CountryRepository): Promise<void> {
+    
+    const argentina:Country | null = await findCountryByName(_countryRepository)('Argentina')
+    const italy:Country | null = await findCountryByName(_countryRepository)('Italy')
   
     if(!argentina || !italy) return;
   
@@ -42,5 +41,5 @@ export default async function seedCity(prisma:PrismaClient): Promise<void> {
         countryId: italy.id
       }
     ]
-    await _cityRepository.createMany(prisma, newCities)
+    await createManyCities(_cityRepository)(newCities)
   }

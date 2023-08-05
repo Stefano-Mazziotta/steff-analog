@@ -12,6 +12,7 @@ import { createCamera } from '@/modules/cameras/application/create/createCamera'
 import { createFilm } from '@/modules/films/application/create/createFilm';
 import { createApiFilmRepository } from '@/modules/films/infrastructure/apiFilmRepository';
 import { createApiCountryRepository } from '@/modules/countries/infrastructure/apiCountryRepository';
+import { createApiCityRepository } from '@/modules/cities/infrastructure/apiCityRepository';
 
 const prisma = new PrismaClient()
 
@@ -19,13 +20,14 @@ async function seed() {
   try {
 
     const _countryRepository = createApiCountryRepository()
+    const _cityRepository = createApiCityRepository()
     const _cameraRepository = createApiCameraRepository()
     const _filmRepository = createApiFilmRepository()
     const _photoRepository = new PhotoRepository()
     const _linkRepository = new LinkRepository()
     
     await seedCountry(_countryRepository)
-    await seedCity(prisma)
+    await seedCity(_cityRepository, _countryRepository)
     await seedLocation(prisma)
     await seedQuality(prisma)
 
