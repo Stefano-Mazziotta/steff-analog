@@ -1,6 +1,5 @@
 import { PrismaClient, Country, City, Location, Prisma, Quality  } from '@prisma/client'
 
-import FilmRepository from '@/backend/entities/film/film.repository';
 import PhotoRepository from '@/backend/entities/photo/photo.repository';
 import LinkRepository from '@/backend/entities/link/link.repository';
 
@@ -10,6 +9,8 @@ import seedLocation from './seedLocation';
 import seedQuality from './seedQuality';
 import { createApiCameraRepository } from '@/modules/cameras/infrastructure/ApiCameraRepository';
 import { createCamera } from '@/modules/cameras/application/create/createCamera';
+import { createFilm } from '@/modules/films/application/create/createFilm';
+import { createApiFilmRepository } from '@/modules/films/infrastructure/apiFilmRepository';
 
 const prisma = new PrismaClient()
 
@@ -17,7 +18,7 @@ async function seed() {
   try {
 
     const _cameraRepository = createApiCameraRepository()
-    const _filmRepository = new FilmRepository()
+    const _filmRepository = createApiFilmRepository();
     const _photoRepository = new PhotoRepository()
     const _linkRepository = new LinkRepository()
     
@@ -50,7 +51,7 @@ async function seed() {
         connect: japan
       }
     }    
-    const ektar100Film = await _filmRepository.create(prisma, newFilm)
+    const ektar100Film = await createFilm(_filmRepository)(newFilm);
     
     const galleriaAcademiaLocation:Location | null = await prisma.location.findFirst({
       where: {name: "Galleria dell'Accademia di Firenze"} 
