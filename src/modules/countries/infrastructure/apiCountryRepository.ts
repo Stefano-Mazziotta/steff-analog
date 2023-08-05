@@ -22,8 +22,17 @@ export function createApiCountryRepository(): CountryRepository {
         return createdCountries
     }
 
+    async function findByName(name: string): Promise<Country | null>{
+        const foundCountry = await prisma.country.findFirst({
+            where: {name: name} 
+        })
+        return foundCountry
+
+    }
+
     return {
         create,
-        createMany
+        createMany,
+        findByName,
     };
 }
