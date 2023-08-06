@@ -22,8 +22,17 @@ export function createApiCityRepository(): CityRepository {
         return createdCities
     }
 
+    async function findByName(name: string): Promise<City | null>{
+        const foundCity = await prisma.city.findFirst({
+            where: {name: name} 
+        })
+        return foundCity
+
+    }
+
     return {
         create,
-        createMany
+        createMany,
+        findByName
     };
 }
