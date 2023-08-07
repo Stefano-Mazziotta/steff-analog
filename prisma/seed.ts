@@ -1,9 +1,9 @@
-import { PrismaClient, Country, City, Location, Prisma, Quality  } from '@prisma/client'
+import { PrismaClient, Country, Location, Prisma } from '@prisma/client'
 
 import PhotoRepository from '@/backend/entities/photo/photo.repository';
 import LinkRepository from '@/backend/entities/link/link.repository';
 
-import { seedCountry } from './seedCountry';
+import seedCountry from './seedCountry';
 import seedCity from './seedCity';
 import seedLocation from './seedLocation';
 import seedQuality from './seedQuality';
