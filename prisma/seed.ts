@@ -16,6 +16,7 @@ import { createApiFilmRepository } from '@/modules/films/infrastructure/apiFilmR
 import { createApiCountryRepository } from '@/modules/countries/infrastructure/apiCountryRepository';
 import { createApiCityRepository } from '@/modules/cities/infrastructure/apiCityRepository';
 import { createApiLocationRepository } from '@/modules/locations/infrastructure/apiLocationRepository';
+import { createApiQualityRepository } from '@/modules/qualities/infrastructure/apiQualityRepository';
 
 const prisma = new PrismaClient()
 
@@ -27,13 +28,14 @@ async function seed() {
     const _cameraRepository = createApiCameraRepository()
     const _filmRepository = createApiFilmRepository()
     const _locationRepository = createApiLocationRepository()
+    const _qualityRepository = createApiQualityRepository()
     const _photoRepository = new PhotoRepository()
     const _linkRepository = new LinkRepository()
     
     await seedCountry(_countryRepository)
     await seedCity(_cityRepository, _countryRepository)
     await seedLocation(_locationRepository, _cityRepository)
-    await seedQuality(prisma)
+    await seedQuality(_qualityRepository)
 
     // Create camera
     const japan:Country | null = await prisma.country.findFirst({
