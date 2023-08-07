@@ -22,9 +22,9 @@ export function createApiCityRepository(): CityRepository {
         return createdCities
     }
 
-    async function findByName(name: string): Promise<City | null>{
+    async function getByName(cityName: string): Promise<City | null>{
         const foundCity = await prisma.city.findFirst({
-            where: {name: name} 
+            where: {name: cityName} 
         })
         return foundCity
 
@@ -33,6 +33,6 @@ export function createApiCityRepository(): CityRepository {
     return {
         create,
         createMany,
-        findByName
+        getByName
     };
 }
