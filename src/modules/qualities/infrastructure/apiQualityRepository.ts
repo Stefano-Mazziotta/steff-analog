@@ -22,8 +22,15 @@ export function createApiQualityRepository(): QualityRepository {
         return createdQualities
     }
 
+    async function getAll(): Promise<Quality[]> {
+        const qualities = await prisma.quality.findMany()
+
+        return qualities
+    }
+
     return {
         create,
-        createMany
+        createMany,
+        getAll
     }
 }
