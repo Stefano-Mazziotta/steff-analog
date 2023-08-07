@@ -1,15 +1,11 @@
-import { PrismaClient, Country, Location, Prisma } from '@prisma/client'
+import { PrismaClient, Country, Location, Prisma, Quality } from '@prisma/client'
 
 import PhotoRepository from '@/backend/entities/photo/photo.repository';
-import LinkRepository from '@/backend/entities/link/link.repository';
 
 import seedCountry from './seedCountry';
 import seedCity from './seedCity';
 import seedLocation from './seedLocation';
 import seedQuality from './seedQuality';
-
-import { createCamera } from '@/modules/cameras/application/create/createCamera';
-import { createFilm } from '@/modules/films/application/create/createFilm';
 
 import { createApiCameraRepository } from '@/modules/cameras/infrastructure/ApiCameraRepository';
 import { createApiFilmRepository } from '@/modules/films/infrastructure/apiFilmRepository';
@@ -17,6 +13,12 @@ import { createApiCountryRepository } from '@/modules/countries/infrastructure/a
 import { createApiCityRepository } from '@/modules/cities/infrastructure/apiCityRepository';
 import { createApiLocationRepository } from '@/modules/locations/infrastructure/apiLocationRepository';
 import { createApiQualityRepository } from '@/modules/qualities/infrastructure/apiQualityRepository';
+import { createApiLinkRepository } from '@/modules/links/infrastructure/apiLinkRepository';
+
+import { createCamera } from '@/modules/cameras/application/create/createCamera';
+import { createFilm } from '@/modules/films/application/create/createFilm';
+import { getAllQualities } from '@/modules/qualities/application/get-all/getAllQualities';
+import { createManyLinks } from '@/modules/links/application/create/createManyLinks';
 
 const prisma = new PrismaClient()
 
@@ -29,8 +31,8 @@ async function seed() {
     const _filmRepository = createApiFilmRepository()
     const _locationRepository = createApiLocationRepository()
     const _qualityRepository = createApiQualityRepository()
+    const _linkRepository = createApiLinkRepository()
     const _photoRepository = new PhotoRepository()
-    const _linkRepository = new LinkRepository()
     
     await seedCountry(_countryRepository)
     await seedCity(_cityRepository, _countryRepository)
@@ -90,8 +92,24 @@ async function seed() {
       updatedAt: null,
       
     }
-    const davidPhoto = await _photoRepository.create(prisma, newPhoto)    
-    await _linkRepository.create(prisma, davidPhoto.id, "david-2")
+    const davidPhoto = await _photoRepository.create(prisma, newPhoto)   
+
+    const qualities: Quality[] = await getAllQualities(_qualityRepository)()
+    
+    const linksDavidPhoto: Prisma.LinkCreateManyInput[] = []
+    const fileName = 'david-2'
+    qualities.forEach(quality => {
+      const {id, name} = quality
+      const newLink: Prisma.LinkCreateManyInput = {
+        url: `gallery/${name}/${fileName}-${name}`,
+        photoId: davidPhoto.id,
+        qualityId: id
+      }
+
+      linksDavidPhoto.push(newLink)
+    })
+    
+    await createManyLinks(_linkRepository)(linksDavidPhoto)
 
   } catch (error) {
     throw new Error(`Poblate db error: ${error}`)

@@ -74,7 +74,7 @@ model Photo {
   film        Film             @relation(fields: [filmId], references: [id])
   location    Location         @relation(fields: [locationId], references: [id])
   categories  Photo_category[]
-  src         Src[]
+  src         Link[]
 }
 
 model Photo_category {
@@ -88,10 +88,10 @@ model Photo_category {
 model Quality {
   id   Int    @id @default(autoincrement())
   name String
-  src  Src[]
+  src  Link[]
 }
 
-model Src {
+model Link {
   id        Int     @id @default(autoincrement())
   url       String  @unique
   photoId   Int
