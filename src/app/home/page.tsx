@@ -1,8 +1,8 @@
-import { getApolloClient } from "@/frontend/lib/apolloClient"
+import { getApolloClient } from "@/lib/apolloClient"
 import { gql } from "@apollo/client"
 
 import styles from './styles.module.css';
-import { Gallery } from "@/frontend/components/gallery";
+import { Gallery } from "@/components/gallery";
 import { Photo } from "@prisma/client";
 
 const query = gql`

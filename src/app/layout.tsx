@@ -1,7 +1,7 @@
 import './globals.css'
 
 import { Merriweather } from 'next/font/google'
-import { Header } from '@/frontend/components/header'
+import { Header } from '@/components/header'
 
 const merriweather = Merriweather({
   weight: ['400','700', '900'],

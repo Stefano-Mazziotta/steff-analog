@@ -5,12 +5,12 @@ import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/dis
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 
-import { cors } from '@/backend/lib/cors';
-import { runMiddleware } from '@/backend/lib/middleware';
-import { formatError } from '@/backend/lib/apolloServer';
+import { cors } from '@/lib/cors';
+import { runMiddleware } from '@/lib/middleware';
+import { formatError } from '@/lib/apolloServer';
 
-import { resolvers } from '@/backend/graphql/resolvers';
-import { typeDefs } from '@/shared/graphql/schema';
+import { resolvers } from '@/graphql/resolvers';
+import { typeDefs } from '@/graphql/schema';
 
 const schema = makeExecutableSchema({
   typeDefs,

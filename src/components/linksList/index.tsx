@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { links } from "@/frontend/constants/links"
+import { links } from "@/constants/links"
 
 export function LinksList({ navigatorContainerClass, linkClass }:{ navigatorContainerClass: string, linkClass: string }) {
     return (
