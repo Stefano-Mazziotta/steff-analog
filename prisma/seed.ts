@@ -1,6 +1,4 @@
-import { PrismaClient, Country, Location, Prisma, Quality } from '@prisma/client'
-
-import PhotoRepository from '@/backend/entities/photo/photo.repository';
+import { PrismaClient, Country, Location, Prisma, Quality, Photo } from '@prisma/client'
 
 import seedCountry from './seedCountry';
 import seedCity from './seedCity';
@@ -14,13 +12,40 @@ import { createApiCityRepository } from '@/modules/cities/infrastructure/apiCity
 import { createApiLocationRepository } from '@/modules/locations/infrastructure/apiLocationRepository';
 import { createApiQualityRepository } from '@/modules/qualities/infrastructure/apiQualityRepository';
 import { createApiLinkRepository } from '@/modules/links/infrastructure/apiLinkRepository';
+import { createApiPhotoRepository } from '@/modules/photos/infrastructure/apiPhotoRepository';
 
 import { createCamera } from '@/modules/cameras/application/create/createCamera';
 import { createFilm } from '@/modules/films/application/create/createFilm';
 import { getAllQualities } from '@/modules/qualities/application/get-all/getAllQualities';
 import { createManyLinks } from '@/modules/links/application/create/createManyLinks';
+import { createPhoto } from '@/modules/photos/application/create/createPhoto';
+import { getCountryByName } from '@/modules/countries/application/get/getCountryByName';
+import { getLocationByName } from '@/modules/locations/application/get/getLocationByName';
+
+import { QualityRepository } from '@/modules/qualities/domain/QualityRepository';
+import { LinkRepository } from '@/modules/links/domain/LinkRepository';
+
 
 const prisma = new PrismaClient()
+
+async function createLinksFromPhoto(photo: Photo, _qualityRepository: QualityRepository, _linkRepository: LinkRepository){
+  const qualities: Quality[] = await getAllQualities(_qualityRepository)()    
+  const allLinks: Prisma.LinkCreateManyInput[] = []
+  const fileName = "david-2"
+  
+  qualities.forEach(quality => {
+    const {id, name} = quality
+    const newLink: Prisma.LinkCreateManyInput = {
+      url: `gallery/${name}/${fileName}-${name}`,
+      photoId: photo.id,
+      qualityId: id
+    }
+
+    allLinks.push(newLink)
+  })
+
+  await createManyLinks(_linkRepository)(allLinks)  
+}
 
 async function seed() {
   try {
@@ -32,7 +57,7 @@ async function seed() {
     const _locationRepository = createApiLocationRepository()
     const _qualityRepository = createApiQualityRepository()
     const _linkRepository = createApiLinkRepository()
-    const _photoRepository = new PhotoRepository()
+    const _photoRepository = createApiPhotoRepository()
     
     await seedCountry(_countryRepository)
     await seedCity(_cityRepository, _countryRepository)
@@ -40,9 +65,7 @@ async function seed() {
     await seedQuality(_qualityRepository)
 
     // Create camera
-    const japan:Country | null = await prisma.country.findFirst({
-      where: {name: "Japan"} 
-    })
+    const japan:Country | null =  await getCountryByName(_countryRepository)("Japan")
     if (!japan) return
     
     const newCamera:Prisma.CameraCreateInput = {
@@ -65,10 +88,8 @@ async function seed() {
     }    
     const ektar100Film = await createFilm(_filmRepository)(newFilm);
     
-    const galleriaAcademiaLocation:Location | null = await prisma.location.findFirst({
-      where: {name: "Galleria dell'Accademia di Firenze"} 
-    })
-
+    const galleriaAcademiaLocation:Location | null = await getLocationByName(_locationRepository)("Galleria dell'Accademia di Firenze")
+    
     if(!galleriaAcademiaLocation) return
 
     // Create photos
@@ -92,24 +113,8 @@ async function seed() {
       updatedAt: null,
       
     }
-    const davidPhoto = await _photoRepository.create(prisma, newPhoto)   
-
-    const qualities: Quality[] = await getAllQualities(_qualityRepository)()
-    
-    const linksDavidPhoto: Prisma.LinkCreateManyInput[] = []
-    const fileName = 'david-2'
-    qualities.forEach(quality => {
-      const {id, name} = quality
-      const newLink: Prisma.LinkCreateManyInput = {
-        url: `gallery/${name}/${fileName}-${name}`,
-        photoId: davidPhoto.id,
-        qualityId: id
-      }
-
-      linksDavidPhoto.push(newLink)
-    })
-    
-    await createManyLinks(_linkRepository)(linksDavidPhoto)
+    const davidPhoto = await createPhoto(_photoRepository)(newPhoto)    
+    await createLinksFromPhoto(davidPhoto, _qualityRepository, _linkRepository);
 
   } catch (error) {
     throw new Error(`Poblate db error: ${error}`)
