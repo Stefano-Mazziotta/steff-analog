@@ -22,8 +22,19 @@ export function createApiLocationRepository(): LocationRepository {
         return createdLocations
     }
 
+    async function getByName(locationName: string): Promise<Location | null> {
+        const foundLocation = await prisma.location.findFirst({
+            where: {
+                name: locationName
+            }
+        })
+
+        return foundLocation
+    }
+
     return {
         create,
-        createMany
+        createMany,
+        getByName
     }
 }
