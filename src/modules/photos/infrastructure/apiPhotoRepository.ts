@@ -22,8 +22,22 @@ export function createApiPhotoRepository(): PhotoRepository {
         return createdPhotos
     }
 
+    async function getAll(): Promise<Photo[]>{
+        const photos = await prisma.photo.findMany({
+            include: {
+                location: true,
+                camera: true,
+                film: true,
+                src: true,
+                categories: true
+            }
+        })
+        return photos
+    }
+
     return {
         create,
-        createMany
+        createMany,
+        getAll
     }
 }
