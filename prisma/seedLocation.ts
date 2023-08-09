@@ -1,8 +1,10 @@
 import { Prisma, City } from "@prisma/client";
+
 import { LocationRepository } from "@/modules/locations/domain/LocationRepository";
-import { getCityByName } from "@/modules/cities/application/get/getCityByName";
 import { CityRepository } from "@/modules/cities/domain/CityRepository";
-import { createManyLocations } from "@/modules/locations/application/create/createManyLocations";
+
+import { getCityByName } from "../src/modules/cities/application/get/getCityByName";
+import { createManyLocations } from "../src/modules/locations/application/create/createManyLocations";
 
 export default async function seedLocation(_locationRepository: LocationRepository, _cityRepository: CityRepository): Promise<void> {
   

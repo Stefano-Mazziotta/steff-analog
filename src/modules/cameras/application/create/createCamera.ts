@@ -7,9 +7,6 @@ export function createCamera(
 	
     return async (newCamera: Prisma.CameraCreateInput): Promise<Camera> => {
 		const createdCamera = await cameraRepository.create(newCamera);
-
-		return {
-			...createdCamera,
-		};
+		return createdCamera;
 	};
 }

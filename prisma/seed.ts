@@ -5,22 +5,22 @@ import seedCity from './seedCity';
 import seedLocation from './seedLocation';
 import seedQuality from './seedQuality';
 
-import { createApiCameraRepository } from '@/modules/cameras/infrastructure/ApiCameraRepository';
-import { createApiFilmRepository } from '@/modules/films/infrastructure/apiFilmRepository';
-import { createApiCountryRepository } from '@/modules/countries/infrastructure/apiCountryRepository';
-import { createApiCityRepository } from '@/modules/cities/infrastructure/apiCityRepository';
-import { createApiLocationRepository } from '@/modules/locations/infrastructure/apiLocationRepository';
-import { createApiQualityRepository } from '@/modules/qualities/infrastructure/apiQualityRepository';
-import { createApiLinkRepository } from '@/modules/links/infrastructure/apiLinkRepository';
-import { createApiPhotoRepository } from '@/modules/photos/infrastructure/apiPhotoRepository';
+import { createApiCameraRepository } from '../src/modules/cameras/infrastructure/ApiCameraRepository';
+import { createApiFilmRepository } from '../src/modules/films/infrastructure/apiFilmRepository';
+import { createApiCountryRepository } from '../src/modules/countries/infrastructure/apiCountryRepository';
+import { createApiCityRepository } from '../src/modules/cities/infrastructure/apiCityRepository';
+import { createApiLocationRepository } from '../src/modules/locations/infrastructure/apiLocationRepository';
+import { createApiQualityRepository } from '../src/modules/qualities/infrastructure/apiQualityRepository';
+import { createApiLinkRepository } from '../src/modules/links/infrastructure/apiLinkRepository';
+import { createApiPhotoRepository } from '../src/modules/photos/infrastructure/apiPhotoRepository';
 
-import { createCamera } from '@/modules/cameras/application/create/createCamera';
-import { createFilm } from '@/modules/films/application/create/createFilm';
-import { getAllQualities } from '@/modules/qualities/application/get-all/getAllQualities';
-import { createManyLinks } from '@/modules/links/application/create/createManyLinks';
-import { createPhoto } from '@/modules/photos/application/create/createPhoto';
-import { getCountryByName } from '@/modules/countries/application/get/getCountryByName';
-import { getLocationByName } from '@/modules/locations/application/get/getLocationByName';
+import { createCamera } from '../src/modules/cameras/application/create/createCamera';
+import { createFilm } from '../src/modules/films/application/create/createFilm';
+import { getAllQualities } from '../src/modules/qualities/application/get-all/getAllQualities';
+import { createManyLinks } from '../src/modules/links/application/create/createManyLinks';
+import { createPhoto } from '../src/modules/photos/application/create/createPhoto';
+import { getCountryByName } from '../src/modules/countries/application/get/getCountryByName';
+import { getLocationByName } from '../src/modules/locations/application/get/getLocationByName';
 
 import { QualityRepository } from '@/modules/qualities/domain/QualityRepository';
 import { LinkRepository } from '@/modules/links/domain/LinkRepository';
@@ -72,7 +72,9 @@ async function seed() {
       name: "Asahi Pentax K1000",
       createdYear: 1976,
       country: {
-        connect: japan
+        connect: {
+          id: japan.id
+        }
       }
     }
     
@@ -83,7 +85,9 @@ async function seed() {
       name: "Kodak Ektar 100",
       createdYear: 2008,
       country: {
-        connect: japan
+        connect: {
+          id: japan.id
+        }
       }
     }    
     const ektar100Film = await createFilm(_filmRepository)(newFilm);
@@ -101,13 +105,19 @@ async function seed() {
       shootDate: new Date("2022-11-01"),
       published: true,
       film: {
-        connect: ektar100Film
+        connect: {
+          id: ektar100Film.id
+        }
       },
       camera: {
-        connect: pentaxCamera
+        connect: {
+          id: pentaxCamera.id
+        }
       },
       location: {
-        connect: galleriaAcademiaLocation
+        connect: {
+          id: galleriaAcademiaLocation.id
+        }
       },
       createdAt: new Date(),
       updatedAt: null,

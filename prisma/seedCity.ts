@@ -1,8 +1,10 @@
 import { Prisma, Country } from "@prisma/client";
+
 import { CityRepository } from "@/modules/cities/domain/CityRepository";
-import { createManyCities } from "@/modules/cities/application/create/createManyCities";
-import { getCountryByName } from "@/modules/countries/application/get/getCountryByName";
 import { CountryRepository } from "@/modules/countries/domain/CountryRepository";
+
+import { createManyCities } from "../src/modules/cities/application/create/createManyCities";
+import { getCountryByName } from "../src/modules/countries/application/get/getCountryByName";
 
 export default async function seedCity(_cityRepository: CityRepository, _countryRepository: CountryRepository): Promise<void> {
     
